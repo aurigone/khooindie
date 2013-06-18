@@ -14,6 +14,7 @@ end
 
 function LevelsManager:loadLevel(name)
     map = loader.load(name .. ".tmx")
+    map.useSpriteBatch = false    
     for _, layer in pairs(map.layers) do
         print(layer.class)
         if layer.class == "ObjectLayer" then
@@ -36,7 +37,7 @@ end
 
 
 function LevelsManager:draw(pos, scale)
-    map.tiles[4]:draw(100,100)
-    -- map:autoDrawRange(pos.x, pos.y, scale, 50)
+    -- map.tiles[4]:draw(100,100)
+    map:autoDrawRange(pos.x, -pos.y, scale, 50)
     map:draw()
 end

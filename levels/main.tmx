@@ -8,7 +8,7 @@
  </tileset>
  <layer name="tiles" width="32" height="32">
   <data encoding="base64" compression="zlib">
-   eJztzzEOgCAQBVEUFUG5/3VpptpCOxKSec1Um/xNSZIkSZKk9dx0ozvN9KDntEXfcmjcd9ES7v7+rLTRh7600wE9SAB5
+   eJzVVVsOwyAMY2v3KNvuf939ZFIVQbCT0GqRKks0xIY8KOVcq8H/WdbjOYq/xYdwV9APjVkLFzOTu6UjK6ZHJ3IXmRp7/pYGNJ8RfivO6G4yuK142X3L3OeMmcH0PFMnCKeue0RDlHu/t3eezA89D6s7OgeZOC1fdq+1ZtV1pPaZGaK5UI0sz2jdM/daGjxviNUXiHlqc7+vF2fGO474Z/TZiBfNK+I3kzf7DfCat8b+VQeTpxlaZvZeNv8Z9hS8CF4FF8FV8HaYItsWhVrfXfCh9o3OuQn+8vUSfAt+BL9R/AeV
   </data>
  </layer>
  <objectgroup name="objects" width="32" height="32">

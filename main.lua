@@ -1,4 +1,5 @@
 
+print("l")
 require("src/adddebug")
 require("src/objects")
 require("src/levels")
@@ -8,7 +9,9 @@ require("src/utils")
 require("src/cameras")
 
 
-function love.load()
+
+function love.load(arg)
+    if arg[#arg] == "-debug" then require("mobdebug").start() end
     CameraManager:push(0, 0, 1, 0)
     Physics:load()
     ObjectsManager:load()
@@ -16,6 +19,7 @@ function love.load()
     LevelsManager:loadLevel("main")
     CameraManager:addTarget(LevelsManager)
 end
+
 
 function love.update(dt)
     InputManager:process()

@@ -3,7 +3,7 @@ require("src/utils")
 require("src/physics")
 vector = require("hump/vector")
 
-Object = class({position = {
+Object = class({pos = {
     x = 0,
     y = 0
 }})
@@ -23,11 +23,8 @@ function Object:init(sprite)
 end
 
 
-function Object:draw()
---[[
-    love.graphics.draw(self.image, self.pos.x, self.pos.y,
-                self.rotate, self.size, self.size)
-]]--
+function Object:draw(pos, attr)
+    
 end
 
 
@@ -57,9 +54,11 @@ end
 
 
 function Object:update(dt)
-    self.pos = {
-        x = self.phys.body:getX(),
-        y = self.phys.body:getY()
-    }
+    local x, y = self.phys.body:getX(), self.phys.body:getY()
+    if x ~= self.pos.x or y ~= self.pos.y then
+        self.sprite.x, self.pos.x = x, x
+        self.sprite.y, self.pos.y = y, y
+        self.sprite:updateDrawInfo()
+    end
     self:applyForce(dt)
 end
