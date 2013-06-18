@@ -1,0 +1,6 @@
+[submodule "hump"]
+	path = hump
+	url = git://github.com/vrld/hump.git
+[submodule "tileloader"]
+	path = tileloader
+	url = git://github.com/Kadoba/Advanced-Tiled-Loader.git
