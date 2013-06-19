@@ -1,5 +1,6 @@
 
 require("src/object")
+require("src/static")
 require("src/player")
 
 
@@ -21,12 +22,11 @@ function ObjectsManager:draw()
     for i, object in ipairs(self.objects) do
         object:draw()
     end
-
 end
 
-
-function ObjectsManager:createObject(sprite)
-    local metha_name = sprite.type:gsub("^%l", string.upper)
+function ObjectsManager:createObject(sprite, name)
+    local metha_name = name or sprite.type
+    metha_name = metha_name:gsub("^%l", string.upper)
     local metha = _G[metha_name]
     -- TODO: check if metha is Object subclass
     if metha ~= nil then

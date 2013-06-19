@@ -11,10 +11,10 @@
  </tileset>
  <layer name="static_backgound" width="32" height="32">
   <properties>
-   <property name="atl_parallaxX" value="0.1"/>
+   <property name="atl_parallaxX" value="0.001"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJztzjEBAAAIA6B1sn83W8xDSEACAMBHcx0AoGoBQHcANA==
+   eJzt07EJADAIBEB3yv67WWaAqBC5a58vBD8C/nEe864ucFVsyR6ZsOXPttwBQL8EWOIBZg==
   </data>
  </layer>
  <layer name="object_background" width="32" height="32">
@@ -47,7 +47,7 @@
     <property name="speed" value="100"/>
    </properties>
   </object>
-  <object name="enemy" type="object" gid="50" x="858" y="635" width="128" height="128">
+  <object name="enemy" type="unit" gid="50" x="858" y="635" width="128" height="128">
    <properties>
     <property name="speed" value="40"/>
    </properties>

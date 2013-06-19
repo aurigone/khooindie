@@ -19,8 +19,7 @@ function LevelsManager:loadLevel(name)
         if layer.class == "ObjectLayer" then
             if layer.name == "physics" then
                 for _, obj in pairs(layer.objects) do
-                    Physics:staticObject("rect", {x = obj.x, y = obj.y},
-                                         {w = obj.width, h = obj.height})
+                    ObjectsManager:createObject(obj, "static")
                 end
             else
                 for _, obj in pairs(layer.objects) do

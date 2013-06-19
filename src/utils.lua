@@ -1,12 +1,12 @@
 
 
-function class( baseClass )
+function class( baseClass, typename )
 
     local new_class = {}
     local class_mt = { __index = new_class }
 
     function new_class:create(...)
-        local newinst = {}
+        local newinst = { _type = typename }
         setmetatable(newinst, class_mt)
         newinst:init(...)
         return newinst

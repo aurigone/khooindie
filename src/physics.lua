@@ -13,32 +13,12 @@ Physics.__index = Physics
 function Physics:load()
     love.physics.setMeter(self.meter)
     self.world = love.physics.newWorld(0, self.gravity*self.meter, true)
-    --self.world:setCallbacks(beginContact, endContact, preSolve, postSolve)
+    self.world:setCallbacks(beginContact, endContact, preSolve, postSolve)
 end
 
 
-function Physics:dynamicObject(_shape, pos, size, mass)
-    print(pos.x, pos.y, size.w, size.w)
-    local position = {x = pos.x + size.w/2, y = pos.y - size.h / 2}
-    local body = love.physics.newBody(self.world, position.x, position.y, "dynamic")
-    local shape = nil
-    if _shape == "circle" then
-        shape = love.physics.newCircleShape(size)
-    elseif _shape == "rect" then
-        shape = love.physics.newRectangleShape(0, 0, size.w, size.h)
-    end
-    local fixture = love.physics.newFixture(body, shape, mass)
-    local res = {body = body, shape = shape, fixture = fixture}
-    table.insert(self.dynamic_objects, res)
-    --return res
-    return res
-end
-
-
-function Physics:staticObject(_shape, pos, size)
-    print(pos.x, pos.y, size.w, size.h)
-    local position = {x = pos.x + size.w/2, y = pos.y + size.h / 2}
-    local body = love.physics.newBody(self.world, position.x, position.y, "static")
+function Physics:baseObject(_type, _shape, position, size, mass, obj)
+    local body = love.physics.newBody(self.world, position.x, position.y, _type)
     local shape = nil
     if _shape == "circle" then
         shape = love.physics.newCircleShape(size)
@@ -47,8 +27,24 @@ function Physics:staticObject(_shape, pos, size)
     else
         assert(false, "Bad shape")
     end
-    local fixture = love.physics.newFixture(body, shape)
+    local fixture = love.physics.newFixture(body, shape, mass)
+    fixture:setUserData(obj)
     local res = {body = body, shape = shape, fixture = fixture}
+    return res
+end
+
+
+function Physics:dynamicObject(_shape, pos, size, mass, obj)
+    print(pos.x, pos.y, size.w, size.w)
+    local position = {x = pos.x + size.w/2, y = pos.y - size.h / 2}
+    res = self:baseObject("dynamic", _shape, position, size, mass, obj)
+    table.insert(self.dynamic_objects, res)
+    return res
+end
+
+function Physics:staticObject(_shape, pos, size, obj)
+    local position = {x = pos.x + size.w/2, y = pos.y + size.h / 2}
+    res = self:baseObject("static", _shape, position, size, nil, obj)
     table.insert(self.static_objects, res)
     return res
 end
@@ -76,27 +72,21 @@ function Physics:draw(pos, arg)
 end
 
 
-
-
 function beginContact(a, b, coll)
-    x,y = coll:getNormal()
-    print("\n", a:getUserData(), " colliding with ", b:getUserData(), " with a vector normal of: ", x, ", ", y)
+    local f = a:getUserData()
+    local s = b:getUserData()
+    f:collide(s, coll)
+    s:collide(f, coll)
 end
 
 function endContact(a, b, coll)
-    persisting = 0
-    print("\n", a:getUserData(), " uncolliding with ", b:getUserData())
+    local f = a:getUserData()
+    local s = b:getUserData()
+    f:collide(s, coll)
+    s:collide(f, coll)
 end
 
-persisting = 0
-
 function preSolve(a, b, coll)
-    if persisting == 0 then    -- only say when they first start touching
-        print("\n", a:getUserData(), " touching ", b:getUserData())
-    elseif persisting < 20 then    -- then just start counting
-        print(" ", persisting)
-    end
-    persisting = persisting + 1    -- keep track of how many updates they've been touching for
 end
 
 function postSolve(a, b, coll)
