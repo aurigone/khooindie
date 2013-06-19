@@ -1,7 +1,7 @@
 
-require("src/object")
-require("src/static")
-require("src/player")
+require("src.object")
+require("src.static")
+require("src.player")
 
 
 ObjectsManager = { objects = {}, player = nil }
@@ -23,6 +23,7 @@ function ObjectsManager:draw()
         object:draw()
     end
 end
+
 
 function ObjectsManager:createObject(sprite, name)
     local metha_name = name or sprite.type

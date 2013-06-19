@@ -82,8 +82,8 @@ end
 function endContact(a, b, coll)
     local f = a:getUserData()
     local s = b:getUserData()
-    f:collide(s, coll)
-    s:collide(f, coll)
+    f:collideEnd(s, coll)
+    s:collideEnd(f, coll)
 end
 
 function preSolve(a, b, coll)

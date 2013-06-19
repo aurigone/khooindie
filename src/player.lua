@@ -1,8 +1,8 @@
 
 
-require("src/unit")
-require("src/input")
-require("src/cameras")
+require("src.unit")
+require("src.input")
+require("src.cameras")
 
 Player = class(Unit, "Player")
 
@@ -15,8 +15,4 @@ function Player:init(...)
     InputManager:bind_up("left", "move", self, {x = 0, y = 0})
     InputManager:bind_down("up", "jump", self, {x = 0, y = -1})
     CameraManager:setObject(self)
-end
-
-function Player:move(arg)
-    self.force = vector(arg.x, arg.y)
 end

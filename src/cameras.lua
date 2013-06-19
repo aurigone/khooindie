@@ -1,6 +1,6 @@
 
-require("src/utils")
-hump_camera = require("hump/camera")
+require("src.utils")
+hump_camera = require("hump.camera")
 
 
 CameraManager = {

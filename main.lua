@@ -1,12 +1,12 @@
 
 print("l")
-require("src/adddebug")
-require("src/objects")
-require("src/levels")
-require("src/physics")
-require("src/input")
-require("src/utils")
-require("src/cameras")
+require("src.adddebug")
+require("src.objects")
+require("src.levels")
+require("src.physics")
+require("src.input")
+require("src.utils")
+require("src.cameras")
 
 
 

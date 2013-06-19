@@ -1,5 +1,5 @@
 
-require("src/utils")
+require("src.utils")
 
 
 Object = class({}, "Object")
