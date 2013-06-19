@@ -3,62 +3,71 @@ require("src/utils")
 require("src/physics")
 vector = require("hump/vector")
 
-Object = class({pos = {
-    x = 0,
-    y = 0
-}})
+Object = class()
 
 
 function Object:init(sprite)
+    self.pos = { x = 0, y = 0 }
     self.sprite = sprite
-    --self.image:setFilter("nearest","nearest")
     self.speed = sprite.speed or 100
-    -- self.size = attr["size"] or 1
     self.rotate = 0
-    pos = {x = sprite.x, y = sprite.y}
-    size = {w = sprite.width, h = sprite.height}
-    --local size = {w = sprite.width, h = sprite.height}
+    local pos = {x = sprite.x, y = sprite.y}
+    local size = {w = sprite.width, h = sprite.height}
     self.phys = Physics:dynamicObject("rect", pos, size, 1)
     self.force = vector(0, 0)
 end
 
 
 function Object:draw(pos, attr)
-    
+    p = { x = self.pos.x - self.sprite.width/2,
+          y = self.pos.y + self.sprite.height/2 }
+    if self.sprite.x ~= p.x or self.sprite.y ~= p.y then
+        self.sprite.x = p.x
+        self.sprite.y = p.y
+        self.sprite:updateDrawInfo()
+    end
 end
-
-
 
 
 function Object:applyForce(dt)
     if self.phys == nil or self.phys.body == nil then return end
-
+    -- Current mass
+    local mass = self.phys.body:getMass()
+    -- Current velocity
+    local velocity = vector(self.phys.body:getLinearVelocity())
+    local dumping = self.phys.body:getLinearDamping()
     -- Use half of speed when both forces applied
     local add = (0.5 * math.abs(self.force.x) * math.abs(self.force.y));
     -- Max velocity
-    -- FIXME: Magic value must be function of time delta
-    local mvel = vector(1.0 - add, 1.0 - add) * (self.speed / (dt * dt * Physics.meter) )
-    -- Current velocity
-    local velx, vely = self.phys.body:getLinearVelocity()
-    local velocity = vector(velx, vely)
-    local dumping = self.phys.body:getLinearDamping()
-    -- Velocity delta
-    local dvel = mvel - (velocity * dumping)
+    local mvel = vector(1.0 - add, 1.0 - add) * (self.speed / ( dt * dt * Physics.meter ) )
     -- Max force
-    local mforce = dvel:permul(self.force) * self.phys.body:getMass()
-    self.phys.body:applyForce(mforce.x, mforce.y)
-    --dforce = mforce - physBody->f;
-    --physBody->v_limit = p;
-    --cpBodyApplyForce( physBody, dforce, cpvzero );
+    local mforce = mvel * mass
+    -- Current force
+    local cforce = velocity * mass / ( dt * Physics.meter)
+    -- Force delta
+    local dforce = self.force:permul(mforce - cforce)
+    -- Velocity delta
+    if self.force.x ~= 0 or self.force.y ~= 0 then
+        print("=======")
+        print(velocity, mass)
+        print(cforce,mforce)
+        print(dforce)
+        print("=======")
+    end
+
+    --local dvel = mvel - (velocity * dumping)
+    -- Max force
+    --local mforce = dvel:permul(self.force) *  mass / dt
+    self.phys.body:applyForce(dforce.x, dforce.y)
+    --self.phys.body:applyForce(mforce.x, mforce.y)
 end
 
 
 function Object:update(dt)
     local x, y = self.phys.body:getX(), self.phys.body:getY()
     if x ~= self.pos.x or y ~= self.pos.y then
-        self.sprite.x, self.pos.x = x, x
-        self.sprite.y, self.pos.y = y, y
-        self.sprite:updateDrawInfo()
+        self.pos.x = x
+        self.pos.y = y
     end
     self:applyForce(dt)
 end

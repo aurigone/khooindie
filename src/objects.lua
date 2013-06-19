@@ -21,6 +21,7 @@ function ObjectsManager:draw()
     for i, object in ipairs(self.objects) do
         object:draw()
     end
+
 end
 
 
@@ -31,7 +32,7 @@ function ObjectsManager:createObject(sprite)
     if metha ~= nil then
         local object = metha:create(sprite)
         table.insert(self.objects, object)
-        if object.type == "player" then
+        if sprite.type == "player" then
             self.player = object
         end
     end

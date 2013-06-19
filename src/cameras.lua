@@ -13,7 +13,7 @@ CameraManager.__index = CameraManager
 
 function CameraManager:push(x,y, zoom, rot)
     local c = hump_camera.new(x,y, zoom, rot)
-    self.cameras:push(c)    
+    self.cameras:push(c)
 end
 
 function CameraManager:pop()
@@ -26,10 +26,6 @@ end
 
 function CameraManager:addTarget(object)
     table.insert(self.targets, object)
-    InputManager:bind("right", "move", self, {x = 1, y = 0})
-    InputManager:bind("left", "move", self, {x = -1, y = 0})
-    InputManager:bind("up", "move", self, {x = 0, y = 1})
-    InputManager:bind("down", "move", self, {x = 0, y = -1})
 end
 
 function CameraManager:setObject(object)
@@ -41,16 +37,20 @@ function CameraManager:move(arg)
     camera:move(arg.x * 10, arg.y * 10)
 end
 
+function to_pos(x, y, scale)
+    local w,h = love.graphics.getWidth(), love.graphics.getHeight()
+    return {x = x*scale - w/2, y = y*scale - h/2}
+end
 
 function CameraManager:draw()
     local camera = self:top()
     assert(camera, "No cameras exist")
-    local pos = { x = camera.x, y = camera.y }
-    local scale = camera.scale
+    local w,h = love.graphics.getWidth(), love.graphics.getHeight()
     if self.object ~= nil then
-        local pos = self.object.pos
-        camera:lookAt(pos.x, pos.y)
+        camera:lookAt(self.object.pos.x, self.object.pos.y)
     end
+    local pos = to_pos(camera.x, camera.y, camera.scale)
+
     camera:attach()
     for _, target in ipairs(self.targets) do
         target:draw(pos, scale)

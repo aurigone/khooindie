@@ -17,14 +17,15 @@ function love.load(arg)
     ObjectsManager:load()
     LevelsManager:load()
     LevelsManager:loadLevel("main")
+    CameraManager:addTarget(ObjectsManager)
     CameraManager:addTarget(LevelsManager)
+    CameraManager:addTarget(Physics)
 end
 
 
 function love.update(dt)
-    InputManager:process()
-    ObjectsManager:process(dt)
     Physics:update(dt)
+    ObjectsManager:process(dt)
 end
 
 function love.draw()
