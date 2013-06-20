@@ -1,0 +1,102 @@
+
+require("src.object")
+require("src.physics")
+vector = require("hump.vector")
+
+Unit = class(Object, "Unit")
+
+
+function Unit:init(sprite)
+    self:super():init()
+    self.pos = { x = 0, y = 0 }
+    self.sprite = sprite
+    self.speed = sprite.properties.speed or 100
+    self.mass = sprite.properties.mass or 10
+    self.rotate = 0
+    local pos = {x = sprite.x, y = sprite.y}
+    local size = {w = sprite.width, h = sprite.height}
+    self.phys = Physics:dynamicObject("rect", pos, size, self.mass, self)
+    self.force = vector(0, 0)
+
+    self._staticCollisions = {}
+end
+
+
+function Unit:draw(pos, attr)
+    p = { x = self.pos.x - self.sprite.width/2,
+          y = self.pos.y + self.sprite.height/2 }
+    if self.sprite.x ~= p.x or self.sprite.y ~= p.y then
+        self.sprite.x = p.x
+        self.sprite.y = p.y
+        self.sprite:updateDrawInfo()
+    end
+end
+
+
+function Unit:applyForce(dt)
+    if self.phys == nil or self.phys.body == nil then return end
+    -- Current mass
+    local mass = self.phys.body:getMass()
+    -- Current velocity
+    local velocity = vector(self.phys.body:getLinearVelocity())
+    local dumping = self.phys.body:getLinearDamping()
+    -- Use half of speed when both forces applied
+    local add = (0.5 * math.abs(self.force.x) * math.abs(self.force.y));
+    -- Max velocity (does not count gravity)
+    local mvel = vector(1.0 - add, 1.0 - add) * (self.speed / dt)
+    -- Max force
+    local mforce = self.force:permul(mvel / dt) * mass / Physics.meter
+
+    -- Gravity influence <gravity> = ginf * dt
+    local gscale = self.phys.body:getGravityScale()
+    local ginf = (Physics.gravity * gscale) * dt / Physics.meter
+    -- Current force
+    -- vel = <gravity> + <self>
+    -- <self> = (F/m) * dt
+    local cforce = (velocity - ginf) * mass / dt
+    print(velocity, ginf, dt)
+    -- Force delta
+    local dforce = mforce - cforce
+    print(mforce, cforce, dforce, mvel)
+    self.phys.body:applyForce(dforce.x, dforce.y)
+end
+
+
+function Unit:applyImpulse(direction)
+    local mass = self.phys.body:getMass()
+    local momentum = direction * self.speed * mass / (0.0003 * Physics.meter)
+    self.phys.body:applyLinearImpulse(momentum.x, momentum.y)
+end
+
+
+function Unit:update(dt)
+    local x, y = self.phys.body:getX(), self.phys.body:getY()
+    if x ~= self.pos.x or y ~= self.pos.y then
+        self.pos.x = x
+        self.pos.y = y
+    end
+    self:applyForce(dt)
+end
+
+function Unit:move(arg)
+    self.force = vector(arg.x, arg.y)
+end
+
+function Unit:jump(arg)
+    if x == 0 and y == 0 then return end
+    if self._inAir == false then
+        self:applyImpulse(vector(arg.x, arg.y))
+    end
+end
+
+function Unit:collide(obj, coll)
+    if obj._type == "Static" then
+        self._inAir = false
+    end
+end
+
+function Unit:collideEnd(obj, coll)
+    if obj._type == "Static" then
+        self._inAir = true
+    end
+end

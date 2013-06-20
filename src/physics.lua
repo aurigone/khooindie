@@ -1,9 +1,10 @@
 
+vector = require("hump.vector")
 
 Physics = {
     world = nil,
     meter = 64,
-    gravity = 9.81,
+    gravity = vector(0, 9.81),
     dynamic_objects = {},
     static_objects = {}
 }
@@ -12,7 +13,8 @@ Physics.__index = Physics
 
 function Physics:load()
     love.physics.setMeter(self.meter)
-    self.world = love.physics.newWorld(0, self.gravity*self.meter, true)
+    local gpm = self.gravity * self.meter
+    self.world = love.physics.newWorld(gpm.x, gpm.y, true)
     self.world:setCallbacks(beginContact, endContact, preSolve, postSolve)
 end
 
