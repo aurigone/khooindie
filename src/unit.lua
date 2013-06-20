@@ -12,13 +12,14 @@ function Unit:init(sprite)
     self.sprite = sprite
     self.speed = sprite.properties.speed or 100
     self.mass = sprite.properties.mass or 10
+    self.jump_force = sprite.properties.jump_force or 2
     self.rotate = 0
     local pos = {x = sprite.x, y = sprite.y}
     local size = {w = sprite.width, h = sprite.height}
     self.phys = Physics:dynamicObject("rect", pos, size, self.mass, self)
     self.force = vector(0, 0)
-
     self._staticCollisions = {}
+    self.impulses = stack()
 end
 
 
@@ -49,23 +50,24 @@ function Unit:applyForce(dt)
 
     -- Gravity influence <gravity> = ginf * dt
     local gscale = self.phys.body:getGravityScale()
-    local ginf = (Physics.gravity * gscale) * dt / Physics.meter
+    local ginf = (Physics.gravity * gscale) * dt
     -- Current force
     -- vel = <gravity> + <self>
     -- <self> = (F/m) * dt
     local cforce = (velocity - ginf) * mass / dt
-    print(velocity, ginf, dt)
     -- Force delta
     local dforce = mforce - cforce
-    print(mforce, cforce, dforce, mvel)
-    self.phys.body:applyForce(dforce.x, dforce.y)
+    self.phys.body:applyForce(dforce.x, 0)
 end
 
 
-function Unit:applyImpulse(direction)
-    local mass = self.phys.body:getMass()
-    local momentum = direction * self.speed * mass / (0.0003 * Physics.meter)
-    self.phys.body:applyLinearImpulse(momentum.x, momentum.y)
+function Unit:applyImpulse(dt)
+    local m = self.impulses:pop()
+    if m ~= nil then
+        local mass = self.phys.body:getMass()
+        local momentum = m.direction * m.force * self.speed * mass / ( dt * Physics.meter)
+        self.phys.body:applyLinearImpulse(momentum.x, momentum.y)
+    end
 end
 
 
@@ -76,6 +78,7 @@ function Unit:update(dt)
         self.pos.y = y
     end
     self:applyForce(dt)
+    self:applyImpulse(dt)
 end
 
 function Unit:move(arg)
@@ -85,7 +88,10 @@ end
 function Unit:jump(arg)
     if x == 0 and y == 0 then return end
     if self._inAir == false then
-        self:applyImpulse(vector(arg.x, arg.y))
+        self.impulses:push({
+            direction=vector(arg.x, arg.y),
+            force=self.jump_force
+        })
     end
 end
 

@@ -15,6 +15,12 @@ end
 
 function LevelsManager:loadLevel(name)
     map = loader.load(name .. ".tmx")
+    if map.properties.background then
+        local bg = loadstring(map.properties.background)()
+        if bg ~= nil then
+            love.graphics.setBackgroundColor(bg)
+        end
+    end
     for _, layer in pairs(map.layers) do
         if layer.class == "ObjectLayer" then
             if layer.name == "physics" then

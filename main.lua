@@ -12,6 +12,7 @@ require("src.cameras")
 
 function love.load(arg)
     if arg[#arg] == "-debug" then require("mobdebug").start() end
+    love.graphics.setMode(1024, 768)
     CameraManager:push(0, 0, 1, 0)
     Physics:load()
     ObjectsManager:load()

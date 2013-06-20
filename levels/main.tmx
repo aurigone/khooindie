@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="32" height="32" tilewidth="32" tileheight="32" backgroundcolor="#d9ba65">
+<map version="1.0" orientation="orthogonal" width="80" height="32" tilewidth="32" tileheight="32" backgroundcolor="#d9ba65">
+ <properties>
+  <property name="background" value="return {217, 186, 101}"/>
+ </properties>
  <tileset firstgid="1" name="tiles" tilewidth="64" tileheight="64">
   <image source="../graphics/tiles.png" width="768" height="256"/>
  </tileset>
@@ -9,42 +12,63 @@
  <tileset firstgid="51" name="misc" tilewidth="192" tileheight="192">
   <image source="../graphics/misc.png" width="384" height="384"/>
  </tileset>
- <layer name="static_backgound" width="32" height="32">
+ <tileset firstgid="55" name="auto" tilewidth="32" tileheight="32">
+  <image source="../graphics/auto.png" width="96" height="96"/>
+ </tileset>
+ <tileset firstgid="64" name="tiles" tilewidth="32" tileheight="32">
+  <image source="../graphics/tiles.png" width="768" height="256"/>
+ </tileset>
+ <layer name="static_backgound" width="80" height="32">
   <properties>
    <property name="atl_parallaxX" value="0.001"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJzt07EJADAIBEB3yv67WWaAqBC5a58vBD8C/nEe864ucFVsyR6ZsOXPttwBQL8EWOIBZg==
+   eJzt1bENADAIAzB+6v+/9QOWCqkK9popMKQKAOadxzzZ5u4AkMCWuwEAPTvxB38AAACATBdCrAFm
   </data>
  </layer>
- <layer name="object_background" width="32" height="32">
+ <layer name="object_background" width="80" height="32">
   <data encoding="base64" compression="zlib">
-   eJztzjERACAMBLCKKviX1gUBDNz9QKIgVQDAjZ0OAMCx0oEHOh340ACsTgCg
+   eJztzkENADAIBDBEsfmXhoa9biStglYBAAAA8JubDgAAAAArnXSA9TodAJ4M2UoAoA==
   </data>
  </layer>
- <layer name="background" width="32" height="32">
+ <layer name="background" width="80" height="32">
   <data encoding="base64" compression="zlib">
-   eJztzyEOACAMA8BZ8PD/p2KGISgQhOTOVK1ZIwAAAOBPJbNl9sz64Jcb647T+7l71zMAZMAAhQ==
+   eJzt0jEKwCAMBVBX3dv7H7UV7BIytILY4T2QgKD8hJQCAAAAAAAAAAD8UR31GPW8T9uU5Yssd7crewuVd7J51eRulbhHs++fPmb/mRX3f8XsLqUuAR4=
   </data>
  </layer>
- <layer name="tiles" width="32" height="32">
+ <layer name="shape" width="80" height="32" visible="0">
   <data encoding="base64" compression="zlib">
-   eJztlKsOhEAMRXkGBA8BYiHZNQQBCP7/7zCnZrKCjCkk95jjJredtkkihBBCCHGPL/65pvBjw7trCvF0UpzhCtcOWTyY8IwHPDpk8cDuxIkX3ES8ZbNkM5TjN8xS2IdPxBst7nCPrZdv2K2wBrsL9pcF/lfDig9cYuvlnd0K9/ECb3ADPQ==
+   eJztl0EOgCAMBP0V/v9lxsSDEkrFrQZkJulRNk6ghWUBAAC4smYFbezO0lH4awd/GjP4y3tUZK+axV/KCn/3wZ8G/jTwZ2PNhvOMYH7YlPbWl/+Dv7h8/Gn5s/iL7IV/8OfNj9I3Uft0dH9PwJ8G/up4Z5n+V+fN90YtC39aFv60LPxpWSP6s2ZFyV/r3PDulnnWqP6s94dX3h27de3Z/HlvvKi1egZ/GvjT6MVfjQ2+91iE
   </data>
  </layer>
- <objectgroup name="physics" width="32" height="32">
+ <layer name="tiles" width="80" height="32">
+  <data encoding="base64" compression="zlib">
+   eJztWTuLFEEQLl9o4CPQQAVNxEANBBMNVxGjVVOV46JTU4VLLtFU0cR/0LKJD9AfcMne3W9YEQT9BSc+QFOrqPqYumauHWd7bmfO+eCjdpeb6umvq6uq+4h69OjRo0ePjRgwLzNvMG/O9lU6iVvM28x7zPszfpcuotdvOgTmS9re+g1Ic9SQeYV5lfLlqgfMh8xHzMeZfLYN2GMLzDuUd67w/Y75PpPPtgFzHDHnmJ+ZXzL73s77F3tsiVTDnHOFfjnXpG34yHzGfGH2OfNTJt+BtH50Nf8NSOvBNdLaAL5hvrW/+cb8HvFnpvER212Nv0C6/vOktQFcZa5twfjQr6v5L85tE/u8VfMJpOvXRP09YfZkZr8egfT9R1ToJ6ySjy5kGB/1o6v5D7UB9aFKjRiQ5kyhz5N10GT/csbs2cx+Pcpqg/AHbV4jAmnMis7T5sn/oX+O4XPmtHHT9f1bB0+o2PPT9oJd71/K8Ir5moq7gvi+wO/51D6vgkCaC2ap3w6zO83uNbuvpr8xc4W0D5QYa3JvBer2+aMMgXROkt+kl2kyt7fh/HvM7HGzh80eMXvJsQowJ9FO7lua1C9Q++NPdPhA/66fxJ/o1+RZpA39C/rE82ZPmd1vdp35lcr1Q62Q+4Oh8TppTRTtcBZBLcE9Q5X/l8H30J7Ds/Djx8q1RqgFqAG7zNatBYJU/I1Ja4XcHywY71JxDsaZDrUE9wwy35SG0G7FfM67Z+HHj9WG+4M4Do+aTcVfoKJWIN5QNyaJ73/rncek2i2553F/7b/DZy79Dpg9aPaQWezFOr1JKv6QfzCvOdo4R6/riAo9hKmc5XNo/Cz8+bHa1D/Ha5CKP/T/iAOZD+aK+XkdR+73VMzENSjWbOKsrO0v5u9NfKGvRS7bbbYshk6bPWd2j1nsxbg3KUPcz1w0lkHOYk9JNRYuMpdJ72EWjevu+7L7PdVzYF1iP/FnrG3qHf8AXeXtJw==
+  </data>
+ </layer>
+ <objectgroup name="physics" width="80" height="32" visible="0">
   <object x="-117" y="960" width="369" height="71"/>
   <object x="351" y="832" width="256" height="198"/>
   <object x="598" y="896" width="136" height="145"/>
   <object x="449" y="481" width="127" height="127"/>
   <object x="767" y="674" width="266" height="188"/>
   <object x="834" y="862" width="64" height="62"/>
-  <object x="898" y="862" width="160" height="204"/>
+  <object x="894" y="777" width="224" height="248"/>
+  <object x="1257" y="420" width="248" height="183"/>
+  <object x="1539" y="263" width="192" height="181"/>
+  <object x="1413" y="676" width="184" height="187"/>
+  <object x="1667" y="545" width="157" height="160"/>
+  <object x="1249" y="832" width="163" height="184"/>
+  <object x="1601" y="833" width="157" height="63"/>
+  <object x="1764" y="864" width="31" height="153"/>
+  <object x="2276" y="129" width="124" height="845"/>
+  <object x="1991" y="839" width="284" height="59"/>
+  <object x="1953" y="867" width="36" height="115"/>
  </objectgroup>
- <objectgroup name="objects" width="32" height="32">
+ <objectgroup name="objects" width="80" height="32">
   <object name="Player" type="player" gid="49" x="14" y="895" width="128" height="128">
    <properties>
-    <property name="speed" value="100"/>
+    <property name="speed" value="300"/>
    </properties>
   </object>
   <object name="enemy" type="unit" gid="50" x="858" y="635" width="128" height="128">

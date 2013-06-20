@@ -63,6 +63,8 @@ function stack(t)
             end
         end,
         pop = function(self, num)
+            -- Nothing in stack
+            if #self == 0 then return nil end
             local num = num or 1
             if num > #self then
                 error("underflow in NewStack-created stack")
