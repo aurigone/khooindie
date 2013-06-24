@@ -4,7 +4,9 @@ require("src.static")
 require("src.player")
 
 
-ObjectsManager = { objects = {}, player = nil }
+local objects = {}
+
+ObjectsManager = { player = nil }
 ObjectsManager.__index = ObjectsManager
 
 function ObjectsManager:load()
@@ -12,14 +14,14 @@ function ObjectsManager:load()
 end
 
 function ObjectsManager:process(dt)
-    for i, object in ipairs(self.objects) do
+    for i, object in ipairs(objects) do
         object:update(dt)
     end
 end
 
 
 function ObjectsManager:draw()
-    for i, object in ipairs(self.objects) do
+    for i, object in ipairs(objects) do
         object:draw()
     end
 end
@@ -32,7 +34,7 @@ function ObjectsManager:createObject(sprite, name)
     -- TODO: check if metha is Object subclass
     if metha ~= nil then
         local object = metha:create(sprite)
-        table.insert(self.objects, object)
+        table.insert(objects, object)
         if sprite.type == "player" then
             self.player = object
         end

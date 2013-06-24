@@ -87,7 +87,7 @@ end
 
 function Unit:jump(arg)
     if x == 0 and y == 0 then return end
-    if self._inAir == false then
+    if #self._staticCollisions > 0 then
         self.impulses:push({
             direction=vector(arg.x, arg.y),
             force=self.jump_force
@@ -97,12 +97,12 @@ end
 
 function Unit:collide(obj, coll)
     if obj._type == "Static" then
-        self._inAir = false
+        table.insert(self._staticCollisions, coll)
     end
 end
 
 function Unit:collideEnd(obj, coll)
     if obj._type == "Static" then
-        self._inAir = true
+        table.remove(self._staticCollisions, 1)
     end
 end

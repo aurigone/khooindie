@@ -1,5 +1,4 @@
 
-print("l")
 require("src.adddebug")
 require("src.objects")
 require("src.levels")
@@ -7,7 +6,7 @@ require("src.physics")
 require("src.input")
 require("src.utils")
 require("src.cameras")
-
+--profiler = require("profiler")
 
 
 function love.load(arg)
@@ -20,7 +19,8 @@ function love.load(arg)
     LevelsManager:loadLevel("main")
     CameraManager:addTarget(ObjectsManager)
     CameraManager:addTarget(LevelsManager)
-    CameraManager:addTarget(Physics)
+    --CameraManager:addTarget(Physics)
+    if profiler then profiler.start() end
 end
 
 

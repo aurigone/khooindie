@@ -13,10 +13,18 @@ function LevelsManager:load(file)
 end
 
 
+function LevelsManager:size()
+    return self.width, self.height
+end
+
+
 function LevelsManager:loadLevel(name)
     map = loader.load(name .. ".tmx")
-    if map.properties.background then
-        local bg = loadstring(map.properties.background)()
+    self.width = map.width * map.tileWidth
+    self.height = map.height * map.tileHeight
+    local bgstr = map.properties.background
+    if bgstr then
+        local bg = loadstring(bgstr)()
         if bg ~= nil then
             love.graphics.setBackgroundColor(bg)
         end
@@ -38,7 +46,6 @@ end
 
 
 function LevelsManager:draw(pos, scale)
-    -- map.tiles[4]:draw(100,100)
-    map:autoDrawRange(-pos.x, -pos.y, scale, 50)
+    map:autoDrawRange(-pos.x, -pos.y, scale, map.tileWidth * 4 + 1)
     map:draw()
 end

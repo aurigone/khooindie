@@ -2,10 +2,10 @@
 require("src.utils")
 hump_camera = require("hump.camera")
 
+local cameras = stack()
+local targets = {}
 
 CameraManager = {
-    cameras = stack(),
-    targets = {},
     object = nil
 }
 CameraManager.__index = CameraManager
@@ -13,19 +13,19 @@ CameraManager.__index = CameraManager
 
 function CameraManager:push(x,y, zoom, rot)
     local c = hump_camera.new(x,y, zoom, rot)
-    self.cameras:push(c)
+    cameras:push(c)
 end
 
 function CameraManager:pop()
-    self.cameras:pop()
+    cameras:pop()
 end
 
 function CameraManager:top()
-    return self.cameras:top()
+    return cameras:top()
 end
 
 function CameraManager:addTarget(object)
-    table.insert(self.targets, object)
+    table.insert(targets, object)
 end
 
 function CameraManager:setObject(object)
@@ -33,26 +33,31 @@ function CameraManager:setObject(object)
 end
 
 function CameraManager:move(arg)
-    local camera = CameraManager:top()
+    local camera = self:top()
     camera:move(arg.x * 10, arg.y * 10)
 end
 
-function to_pos(x, y, scale)
+function CameraManager:getPos()
+    local camera = self:top()
+    assert(camera, "No cameras exist")
+    local scale = camera.scale
     local w,h = love.graphics.getWidth(), love.graphics.getHeight()
-    return {x = x*scale - w/2, y = y*scale - h/2}
+    local mw, mh = LevelsManager:size()
+    local px = self.object and self.object.pos.x or camera.x
+    local py = self.object and self.object.pos.y or camera.y
+    -- Check borders
+    local dx = (px < w / 2) and w / 2 or (
+               (px > mw - w/2) and mw - w/2 or px )
+    local dy = (py < h / 2) and h / 2 or (
+               (py > mh - h/2) and mh - h/2 or py )
+    camera:lookAt(dx, dy)
+    return camera, {x = camera.x*scale - w/2, y = camera.y*scale - h/2}
 end
 
 function CameraManager:draw()
-    local camera = self:top()
-    assert(camera, "No cameras exist")
-    local w,h = love.graphics.getWidth(), love.graphics.getHeight()
-    if self.object ~= nil then
-        camera:lookAt(self.object.pos.x, self.object.pos.y)
-    end
-    local pos = to_pos(camera.x, camera.y, camera.scale)
-
+    local camera, pos = self:getPos()
     camera:attach()
-    for _, target in ipairs(self.targets) do
+    for _, target in ipairs(targets) do
         target:draw(pos, scale)
     end
     camera:detach()

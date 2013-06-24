@@ -1,12 +1,13 @@
 
 vector = require("hump.vector")
 
+local dynamic_objects = {}
+local static_objects = {}
+
 Physics = {
     world = nil,
     meter = 64,
-    gravity = vector(0, 9.81),
-    dynamic_objects = {},
-    static_objects = {}
+    gravity = vector(0, 9.81)
 }
 Physics.__index = Physics
 
@@ -40,14 +41,14 @@ function Physics:dynamicObject(_shape, pos, size, mass, obj)
     print(pos.x, pos.y, size.w, size.w)
     local position = {x = pos.x + size.w/2, y = pos.y - size.h / 2}
     res = self:baseObject("dynamic", _shape, position, size, mass, obj)
-    table.insert(self.dynamic_objects, res)
+    table.insert(dynamic_objects, res)
     return res
 end
 
 function Physics:staticObject(_shape, pos, size, obj)
     local position = {x = pos.x + size.w/2, y = pos.y + size.h / 2}
     res = self:baseObject("static", _shape, position, size, nil, obj)
-    table.insert(self.static_objects, res)
+    table.insert(static_objects, res)
     return res
 end
 
@@ -65,10 +66,10 @@ function Physics:draw(pos, arg)
         love.graphics.quad(mode, obj.body:getWorldPoints(obj.shape:getPoints()))
     end
 
-    for i, object in ipairs(self.static_objects) do
+    for i, object in ipairs(static_objects) do
         _draw(object)
     end
-    for i, object in ipairs(self.dynamic_objects) do
+    for i, object in ipairs(dynamic_objects) do
         _draw(object)
     end
 end
