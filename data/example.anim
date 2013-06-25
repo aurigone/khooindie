@@ -1,0 +1,21 @@
+
+{
+    name = "name",
+    image = "path to image"
+    frames_time = { -- time-dependent
+        {
+          duration, -- duration in ms
+          leftx, topy, rightx, bottomy -- sprite position in image
+          mirroredx -- bool
+        }
+    },
+    frames_action = {
+        "action name" = {
+            {
+                leftx, topy, rightx, bottomy -- sprite position in image
+                mirroredx -- bool
+            }
+        }
+    }
+
+}
