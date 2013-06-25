@@ -1,5 +1,5 @@
 
-require("src.objects")
+require("src.units.manager")
 require("src.physics")
 local loader = require("tileloader.Loader")
 

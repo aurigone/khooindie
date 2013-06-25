@@ -20,7 +20,7 @@ function Physics:load()
 end
 
 
-function Physics:baseObject(_type, _shape, position, size, mass, obj)
+function Physics:baseObject(_type, _shape, position, size, obj)
     local body = love.physics.newBody(self.world, position.x, position.y, _type)
     local shape = nil
     if _shape == "circle" then
@@ -30,24 +30,23 @@ function Physics:baseObject(_type, _shape, position, size, mass, obj)
     else
         assert(false, "Bad shape")
     end
-    local fixture = love.physics.newFixture(body, shape, mass)
+    local fixture = love.physics.newFixture(body, shape, obj.mass)
     fixture:setUserData(obj)
     local res = {body = body, shape = shape, fixture = fixture}
     return res
 end
 
 
-function Physics:dynamicObject(_shape, pos, size, mass, obj)
-    print(pos.x, pos.y, size.w, size.w)
+function Physics:dynamicObject(_shape, pos, size, obj)
     local position = {x = pos.x + size.w/2, y = pos.y - size.h / 2}
-    res = self:baseObject("dynamic", _shape, position, size, mass, obj)
+    res = self:baseObject("dynamic", _shape, position, size, obj)
     table.insert(dynamic_objects, res)
     return res
 end
 
 function Physics:staticObject(_shape, pos, size, obj)
     local position = {x = pos.x + size.w/2, y = pos.y + size.h / 2}
-    res = self:baseObject("static", _shape, position, size, nil, obj)
+    res = self:baseObject("static", _shape, position, size, obj)
     table.insert(static_objects, res)
     return res
 end

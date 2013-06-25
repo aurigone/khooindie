@@ -1,6 +1,6 @@
 
 require("src.adddebug")
-require("src.objects")
+require("src.units.manager")
 require("src.levels")
 require("src.physics")
 require("src.input")
