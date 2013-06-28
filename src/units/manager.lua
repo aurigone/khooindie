@@ -2,6 +2,7 @@
 require("src.units.object")
 require("src.units.static")
 require("src.units.player")
+require("src.units.spawner")
 require("src.units.animation")
 
 
@@ -29,6 +30,10 @@ end
 
 
 function ObjectsManager:createObject(sprite, name)
+    if type(sprite) == string then
+        sprite = get_proto(sprite)
+    end
+
     local metha_name = name or sprite.type
     metha_name = metha_name:gsub("^%l", string.upper)
     local metha = _G[metha_name]

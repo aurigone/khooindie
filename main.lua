@@ -7,6 +7,7 @@ require("src.input")
 require("src.utils")
 require("src.cameras")
 --profiler = require("profiler")
+Timer = require("hump.timer").new()
 
 
 function love.load(arg)
@@ -27,6 +28,7 @@ end
 function love.update(dt)
     Physics:update(dt)
     ObjectsManager:process(dt)
+    Timer:update(dt)
 end
 
 function love.draw()

@@ -1,84 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="80" height="32" tilewidth="32" tileheight="32" backgroundcolor="#d9ba65">
  <properties>
+  <property name="AutomappingRadius" value="5"/>
   <property name="background" value="return {217, 186, 101}"/>
  </properties>
- <tileset firstgid="1" name="tiles" tilewidth="64" tileheight="64">
-  <image source="../graphics/tiles.png" width="768" height="256"/>
- </tileset>
- <tileset firstgid="49" name="misc" tilewidth="192" tileheight="192">
-  <image source="../graphics/misc.png" width="384" height="384"/>
- </tileset>
- <tileset firstgid="53" name="auto" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="auto" tilewidth="32" tileheight="32">
   <image source="../graphics/auto.png" width="96" height="96"/>
  </tileset>
- <tileset firstgid="62" name="tiles" tilewidth="32" tileheight="32">
-  <image source="../graphics/tiles.png" width="768" height="256"/>
+ <tileset firstgid="10" name="level" tilewidth="32" tileheight="32">
+  <image source="../graphics/lvl1.png" width="227" height="288"/>
  </tileset>
- <layer name="static_backgound" width="80" height="32">
-  <properties>
-   <property name="atl_parallaxX" value="0.001"/>
-  </properties>
+ <layer name="background_shape" width="80" height="32" visible="0" opacity="0.69">
   <data encoding="base64" compression="zlib">
-   eJzt1jEOwCAIBVCuVOv9z9bdwaUaS3kvYWKBMHwiAGC/62X/zyrvXlk7PQAAy6zI8j5UNv4ZAGbkxDe4Qx736QEAAABI5QFy0QKN
-  </data>
- </layer>
- <layer name="object_background" width="80" height="32">
-  <data encoding="base64" compression="zlib">
-   eJztzkENADAIBDA0sfnXhoa9biStglYBAAAA8JubDgAAAAArnXSA9TodAJ4MmVoAmg==
+   eJzt1csJACAMRMH46b9mhVSguekMPLaEjQAAAAAAAHhLV6m5a7a0kiSdNiJ/xN6vJP3YAv/mDAk=
   </data>
  </layer>
  <layer name="background" width="80" height="32">
   <data encoding="base64" compression="zlib">
-   eJzt1EsKgCAQAFC3uq/7HzUChRCTCsVF720GZUbGD4YAAAAAAAAAAMDfbTnuN2PWiDle7yMt6uWNVt+nXu8lp9SO3GeqIs+0zis25map39HX+rKP3jp1zoi/r15rxtkdNZMB0g==
+   eJztxSEOgDAUBcFeARRVoEDR+x+P5/C/qslMstnWAAAAAAAA4Lel3cs/Uvfyz3T51CWt2Z0eL/9Nw6cuac0+qCd4eQ==
   </data>
  </layer>
- <layer name="shape" width="80" height="32" visible="0">
+ <layer name="shape" width="80" height="32" visible="0" opacity="0.86">
   <data encoding="base64" compression="zlib">
-   eJztl0EOgCAMBP0U/v9pxsSDEkrFrQZkJulRNk6ghWUBAAC4smYFbezO0lH4awd/GjP4y3tUZK+axV/KCn/3wZ8G/jTwZ2PNhvOMYH7YlPbWl/+Dv7h8/Gn5s/iL7IV/8OfNj9I3Uft0dH9PwJ8G/up4Z5n+V+fN90YtC39aFv60LPxpWSP6s2ZFyV/r3PDulnnWqP6s94dX3h27de3Z/HlvvKi1egZ/GvjT6MVfjQ00LlVS
+   eJztl9sOAyEIRLf9/49uNmmThshNQVecSXxckMOI7nVBEARBEHSS3mRBPt3MXt8Ffn5F8KMePsnLETX/96CKl2f6oCq/WXVk8uNmQ7Y/qvivFZsuS4xVM9nS+0xfRPFbNVOk/a/y9m7+251fprQzB36ytPdzD7/IWViBn/ftQGuuzi/7zqzML0PgJ0s7yyfNvx7N/N99Ar/of8cT+UW+38CvXbPVlzvz632P/Ratmc59yoLL0+LnnQ9aLVyuUX5cnFHfcHeptn9pP1pPe2Nn8ZP6b/GNJ5+VobeO3j5ZzqUnLzffWrm5Wnfg59nDCL/W9xX8t5qfpB34fQDKwgO9
+  </data>
+ </layer>
+ <layer name="static_background" width="80" height="32">
+  <properties>
+   <property name="atl_parallax" value="0.001"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJzt2LEOgkAURNH9A6yw0kZoFhqhUBulEf7/j5iEjsTCYDI+ck9ys+1ky5cSAAAAHC6rF9/Jafm77B6Cjwp1cI8IrFRH94jATursHrFTN3VXD/eQoJ7qpQbzjqjealSTe8iPVKp2jwisUa17RGCd6t0jAAAA8De4U2/DnXqbq3sAAAQ3A+HdBP8=
+  </data>
+ </layer>
+ <layer name="object_backgound" width="80" height="32">
+  <data encoding="base64" compression="zlib">
+   eJzt1zEOQFAQhGE3oKKiQYMG97+bcQXJvnkb/5dMu5lssck2DQDAoVU6d4nEemVwl0hsVCZ3CQAAABSzKKu7RGK7crhLJHYpt7sEAADAR7O7QCFRP8MWMLNGUT/DGTCzRvwMcf5yw6K8N4wdAsjgAfHvA4A=
   </data>
  </layer>
  <layer name="tiles" width="80" height="32">
   <data encoding="base64" compression="zlib">
-   eJztWctqFEEUvb7QhSaIgkZQDEbEB/gHGiSrUbcqMqugW4Vs3OhW0Y1/EMnGB+gHZGP0GyJCIH5BxETQvffS5zA3xaQydFfPdI194HC7O1O3u27dV1VEWrRo0aJFi+24pryuvKW8PeJvyRF3lHeVD5QPR/wtOaK1XzUsKt/IeNuPOaqjnFXekHS56pHysfKp8lkinU0DY2xeeU/SzpW6Pyo/JdLZNHCOS8r7ynXlj8S6xzl+GWNPpLBhyrnSfinXpGn4rnypfA35SrmWSDfrR675z2qD1YM5KWqDQL5XfsD9L+VmwN+J3k/fztX/uP5d5T48sxrxRfl1CO+n/XLNf2FuI4Y1H65fHfX3NOSZxHo9+P1mu0k8OyrDy0esH7nmP9YG1odBagRzptHnyTKos3+5CHkpsV6PfrXBuCU714jF4L5Knvwf+ucQljNnlCekut/kHr9l8Fx6MV+1F8y9f+mHt8p30jsrCM8LfMzH4nwQsH6N0n57IPdCHoQ8VFLfZ+WKFH2g+VidsZX7/qMfOCfrCVel3tzehP3vFOQpyGOQx0vq45zMdnbeUqf9xtH/aD/zP7NfnXuRJvQv7BOvQp6DPAwZy4OsFXZ+0AFvSlETzXbmg+Ybs7L9nGGQ/5dRdwfjOJZ6/LtSrRFrAWsA9/Rla8FuYK2w84N5cFoKu3FPbOvAWtLFtc03ZkPabgU6u24s9fh3NeH8IPTDk5BXImN8raC/sW5MuvsJXPPebBqbs63LNH5LfTy/9vfUmcp+RyAnILmnZyxW7U1CMP9YzNOGfo7erkvSs4cxlrN8Dg3HUp9/V5P653ANzkZ+y/6ffmB7Mpur1XLO74L05m1/m8HYmM+ENSi02aqT35R/lH930MW+lrlsP2Q/HzoPeRnyACRjcZDeJOxnYvFre7EXyg1wQbksxTnMArjh7pfd81jPwXUJ9YTXJn/u8o3/AACu0Cg=
+   eJztmEEOAiEMRTmAulE36sbduPP+p3NIhoikAh06hYH/kr/Ulk9b0jEGAAAAAABwOMw61U5ix9xmPWonMTi2ho+LUMt8zrMui66Vc5HiqRirR/80sTP0vkh6lvqzgRKI49c2pRw0ezGEun/NN0LCv5pQ+WvOOPgnH78l/1L7h/82bPVGxGjdvy32DzczJeZk6/5tgTuzRJ+P6J/reYm6HtE/SXr0T/N7QY/+ae67LfgX7hClNTOaf26ev43MmUfzL8zl35lz9+w9+1eyz7tcJsZvqHgv881/Ksgn9W0qjCXhX8k+avuY28Op+6eUcz/Wu5Q3OeJCnSesgVjuVA/H+naNfzn3s/Z/Q8Vql/IhJ24sd+5u1bp/3Bzg368+L5YiwA==
   </data>
  </layer>
  <objectgroup name="physics" width="80" height="32" visible="0">
-  <object x="-117" y="960" width="369" height="71"/>
-  <object x="351" y="832" width="256" height="198"/>
-  <object x="598" y="896" width="136" height="145"/>
-  <object x="449" y="481" width="127" height="127"/>
-  <object x="767" y="674" width="266" height="188"/>
-  <object x="834" y="862" width="64" height="62"/>
-  <object x="894" y="777" width="224" height="248"/>
-  <object x="1257" y="420" width="248" height="183"/>
-  <object x="1539" y="263" width="192" height="181"/>
-  <object x="1413" y="676" width="184" height="187"/>
-  <object x="1667" y="545" width="157" height="160"/>
-  <object x="1249" y="832" width="163" height="184"/>
-  <object x="1601" y="833" width="157" height="63"/>
-  <object x="1764" y="864" width="31" height="153"/>
-  <object x="2276" y="129" width="124" height="845"/>
-  <object x="1991" y="839" width="284" height="59"/>
-  <object x="1953" y="867" width="36" height="115"/>
+  <object x="384" y="863" width="190" height="164"/>
+  <object x="580" y="929" width="122" height="113"/>
+  <object x="290" y="450" width="28" height="26"/>
+  <object x="801" y="770" width="154" height="59"/>
+  <object x="865" y="832" width="92" height="94"/>
+  <object x="900" y="868" width="89" height="156"/>
+  <object x="1282" y="450" width="189" height="123"/>
+  <object x="1570" y="289" width="123" height="126"/>
+  <object x="1441" y="708" width="125" height="166"/>
+  <object x="1697" y="578" width="91" height="93"/>
+  <object x="1282" y="866" width="156" height="159"/>
+  <object x="1567" y="867" width="157" height="32"/>
+  <object x="1727" y="896" width="31" height="153"/>
+  <object x="2307" y="385" width="261" height="482"/>
+  <object x="2019" y="865" width="286" height="33"/>
+  <object x="1984" y="898" width="36" height="131"/>
+  <object x="706" y="354" width="29" height="28"/>
+  <object x="1025" y="545" width="62" height="61"/>
+  <object x="1058" y="931" width="29" height="28"/>
+  <object x="1122" y="833" width="29" height="28"/>
+  <object x="1026" y="225" width="60" height="60"/>
  </objectgroup>
  <objectgroup name="objects" width="80" height="32">
-  <object name="player" type="spawner" gid="54" x="65" y="894">
+  <object name="player" type="spawner" gid="2" x="65" y="894">
    <properties>
     <property name="types" value="player"/>
    </properties>
   </object>
-  <object name="ew" type="spawner" gid="55" x="929" y="608">
+  <object name="ew" type="spawner" gid="3" x="929" y="608">
    <properties>
     <property name="types" value="walking_enemy"/>
    </properties>
   </object>
-  <object name="ej" type="spawner" gid="55" x="1568" y="224">
+  <object name="ej" type="spawner" gid="3" x="1568" y="224">
    <properties>
     <property name="types" value="jumping_enemy"/>
    </properties>
   </object>
-  <object name="ef" type="spawner" gid="55" x="2080" y="256">
+  <object name="ef" type="spawner" gid="3" x="2080" y="256">
    <properties>
     <property name="types" value="flying_enemy"/>
    </properties>

@@ -3,37 +3,47 @@
  <tileset firstgid="1" name="auto" tilewidth="32" tileheight="32">
   <image source="../graphics/auto.png" width="96" height="96"/>
  </tileset>
- <tileset firstgid="10" name="tiles" tilewidth="32" tileheight="32">
-  <image source="../graphics/tiles.png" width="768" height="256"/>
+ <tileset firstgid="10" name="lvl1" tilewidth="32" tileheight="32">
+  <image source="../graphics/lvl1.png" width="227" height="288"/>
  </tileset>
  <layer name="regions" width="32" height="32" opacity="0.19">
   <data encoding="base64" compression="zlib">
-   eJzt0DEKACAMBMGA//+zjYWl3YE3A4F0SzKTt8609tvd/3/Zf+unpe9P9wEAoMUGbgMAbQ==
+   eJxjYBg8gBmKcbFx8Ye7/YMNEAondDa1zRto+4cboFf6HrV/FIyCUTAKUAF6OUPvcmek2z/QAF+bYyTbTy8wWtePgpEKANPwASE=
+  </data>
+ </layer>
+ <layer name="input_background_shape" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJzt0kEKACAIRNFJu/+ZIxCKahm26D8QDAIVlQAAAIBcvrzrky7esYiuasxv5+/X9Xolcp/yrD3MM7v2e8isD/ykAe+sADk=
+  </data>
+ </layer>
+ <layer name="inputnot_background_shape" width="32" height="32" opacity="0.43">
+  <data encoding="base64" compression="zlib">
+   eJztzrERADAIAzEOsv/M6T0ABSd1X9lVAABse9G9vD/R+QeAez5gbAAO
+  </data>
+ </layer>
+ <layer name="output2_background" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwSgYBaOAvkAXjS8/IK4YHECegf7+FwRiIShbDYjVkcTpASSAWBLKBqUFPTrZCwOg8Fags52jYBQMBgAAW8UB1w==
   </data>
  </layer>
  <layer name="input_shape" width="32" height="32">
   <data encoding="base64" compression="zlib">
-   eJzt0kEKACAIRFH1/oduIzQELjPI/yAwiEzN7D3PNTX/dGG7/577M9YzXfmjiH+j/7+q+Wb9ere+pWv+AAAAwBQL0fYAOQ==
+   eJzt0rEOwCAIRVHg/z+6kwl5EdKlmuo9kzKAgGb/EHL3j2qMvC41tZ6+5ybVnFzib3cUKUc+u8RnufO521+nqlO963Rh6/vNf2XsYNe8d/QPAAAArPAAD0QATw==
   </data>
  </layer>
- <layer name="output1_tiles" width="32" height="32">
+ <layer name="inputnot_shape" width="32" height="32" opacity="0.43">
   <data encoding="base64" compression="zlib">
-   eJztkqsKgFAQBW/W7qMqaPNRFbRqFbT7kwbFf/OEA94syAU9AwOzaWFZY9yTwdzh/g72Dvf/nQSm7ArW7A2u7InzGzSwZQ9wZB/wZO+cv8gMF3YAQ3YEY7YH/Zf2H+a+bQFLtv0L9o8IIYQQQgghnnEBoMsLGg==
+   eJztzzEKADAIA0Dx/4/u6lyo6XAH4pAhpOpPfZm9sNm3vQ16XKp//kR/cj8AAGw5P48AGQ==
   </data>
  </layer>
- <layer name="output2_tiles" width="32" height="32">
+ <layer name="inputnot_shape" width="32" height="32" opacity="0.43">
   <data encoding="base64" compression="zlib">
-   eJztkL0NgmAURakpCJRsACtgqQW2GGlgAlkAt9AV/FkCcTePyV3hy1dwT3KS86qbvCSJzx4PEfcHHCPub50Gd+oZr+oXvtUPfAba7/CkvuFdveJXveAn0H5sztircyzUGZbqVHcI/n9d1RXW6haP6gtOgfaNMcYYY4zZCj9NBw4g
+   eJztzzEKADAMAkDp/x/dPWMoIdC7xUUQk11OyW7npcm96W8AAAD84QL/4AAR
   </data>
  </layer>
- <layer name="output3_tiles" width="32" height="32">
+ <layer name="output1_tiles" width="32" height="32" opacity="0.59">
   <data encoding="base64" compression="zlib">
-   eJztkM0Jg0AYRLcC7U1RsAW9xdiAuUWtQS+CVpDgD8TOHGGOuS4L7jx48L7TLGuMe3o4ONz/wK/Dfd/JYcGe4MzO4MiOYGxpv4Yv9g8e7BXu7IX3HUlgyg5gyH7Civ2ApaX961+3P29pYcd+w8bSvhBCCCGEEL5wAuU7EtE=
-  </data>
- </layer>
- <layer name="output4_tiles" width="32" height="32">
-  <data encoding="base64" compression="zlib">
-   eJztksENglAQRP8ZoQmEJqABqUEPWgAcoAY4QBeKTQj0xhwmkQY2e2Be8pJ3m2SzIfhTw8Zxv4eD4/7ZSeGVfYMVe4Zf9ht+jPYLWLKf8MVe4cb+wcVo35s7fLBjmLAjeGG3sDPaX8L/thnM2ce/GOFktC+EEEIIIcRZ2AFVYA5S
+   eJxjYBiaQJpG5gpDaVE0cV4a2TfcgAGU1qeCWTJofCkktiaU1qCCPXxofB4qmDkKSAMiaHzFAXHFKBgFo2AUjIJRMApGwSgYBcMbAACJDAGG
   </data>
  </layer>
 </map>

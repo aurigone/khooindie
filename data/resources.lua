@@ -9,4 +9,8 @@ R.animations = {
     "data/poo",
 }
 
+R.prototypes = {
+
+}
+
 return R
