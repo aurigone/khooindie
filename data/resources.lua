@@ -1,16 +1,8 @@
 local R = {}
 
-R.units = {
-    "data/units"
-}
-
-R.animations = {
-    "data/butty",
-    "data/poo",
-}
-
 R.prototypes = {
-
+    "data/proto/butty",
+    "data/proto/poo"
 }
 
 return R

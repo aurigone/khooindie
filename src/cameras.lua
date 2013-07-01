@@ -58,7 +58,13 @@ function CameraManager:draw()
     local camera, pos = self:getPos()
     camera:attach()
     for _, target in ipairs(targets) do
-        target:draw(pos, scale)
+        if type(target) == "table" then
+            target:draw(pos, scale)
+        else
+            target(pos, scale)
+        end
     end
     camera:detach()
+
+    love.graphics.print("FPS: "..love.timer.getFPS(), 10, 20)
 end

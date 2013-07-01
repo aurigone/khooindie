@@ -15,7 +15,7 @@
    eJzt1csJACAMRMH46b9mhVSguekMPLaEjQAAAAAAAHhLV6m5a7a0kiSdNiJ/xN6vJP3YAv/mDAk=
   </data>
  </layer>
- <layer name="background" width="80" height="32">
+ <layer name="background" width="80" height="32" visible="0">
   <data encoding="base64" compression="zlib">
    eJztxSEOgDAUBcFeARRVoEDR+x+P5/C/qslMstnWAAAAAAAA4Lel3cs/Uvfyz3T51CWt2Z0eL/9Nw6cuac0+qCd4eQ==
   </data>
@@ -65,25 +65,29 @@
   <object x="1058" y="931" width="29" height="28"/>
   <object x="1122" y="833" width="29" height="28"/>
   <object x="1026" y="225" width="60" height="60"/>
+  <object x="-5" y="962" width="259" height="76"/>
  </objectgroup>
  <objectgroup name="objects" width="80" height="32">
-  <object name="player" type="spawner" gid="2" x="65" y="894">
+  <object name="player" type="spawner" gid="2" x="65" y="894" visible="0">
    <properties>
     <property name="types" value="player"/>
    </properties>
   </object>
-  <object name="ew" type="spawner" gid="3" x="929" y="608">
+  <object name="ew" type="spawner" gid="3" x="929" y="608" visible="0">
    <properties>
+    <property name="disabled" value="1"/>
     <property name="types" value="walking_enemy"/>
    </properties>
   </object>
-  <object name="ej" type="spawner" gid="3" x="1568" y="224">
+  <object name="ej" type="spawner" gid="3" x="1568" y="224" visible="0">
    <properties>
+    <property name="disabled" value="1"/>
     <property name="types" value="jumping_enemy"/>
    </properties>
   </object>
-  <object name="ef" type="spawner" gid="3" x="2080" y="256">
+  <object name="ef" type="spawner" gid="3" x="2080" y="256" visible="0">
    <properties>
+    <property name="disabled" value="1"/>
     <property name="types" value="flying_enemy"/>
    </properties>
   </object>

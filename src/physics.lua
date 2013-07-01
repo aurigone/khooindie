@@ -22,6 +22,7 @@ end
 
 function Physics:baseObject(_type, _shape, position, size, obj)
     local body = love.physics.newBody(self.world, position.x, position.y, _type)
+    body:setFixedRotation(obj.fixed_rotation)
     local shape = nil
     if _shape == "circle" then
         shape = love.physics.newCircleShape(size)

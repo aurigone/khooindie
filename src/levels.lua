@@ -33,11 +33,11 @@ function LevelsManager:loadLevel(name)
         if layer.class == "ObjectLayer" then
             if layer.name == "physics" then
                 for _, obj in pairs(layer.objects) do
-                    ObjectsManager:createObject(obj, "static")
+                    ObjectsManager:createObject(nil, obj, "static")
                 end
             else
                 for _, obj in pairs(layer.objects) do
-                    ObjectsManager:createObject(obj)
+                    ObjectsManager:createObject(nil, obj)
                 end
             end
         end

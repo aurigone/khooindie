@@ -7,35 +7,30 @@ vector = require("hump.vector")
 Unit = class(Object, "Unit")
 
 
-function Unit:init(proto)
-    self:super():init()
-    self.pos = { x = 0, y = 0 }
-    self.sprite = sprite
-    self.animation = get_animation(proto.name)
-    self.animation.set_frame(0)
-    local frame = self.animation.frame
+function Unit:init(pos, proto)
+    self:super():init(pos, proto)
+    self.pos = pos
+    self.sprite = proto
+    self.animation = proto.animation.new()
     -- physics
     self.speed = proto.properties.speed or 100
     self.mass = proto.properties.mass or 10
+    self.fixed_rotation = proto.properties.fixed_rotation or false
     self.jump_force = proto.properties.jump_force or 2
     self.rotate = 0
     self.force = vector(0, 0)
     self._staticCollisions = {}
     self.impulses = stack()
-    local pos = {x = proto.x, y = proto.y}
-    local size = {w = frame.width, h = frame.height}
-    self.phys = Physics:dynamicObject("rect", pos, size, self.mass, self)
+    local size = self.animation.current_size
+    self.phys = Physics:dynamicObject("rect", pos, size, self)
 end
 
 
 function Unit:draw(pos, attr)
-    p = { x = self.pos.x - self.sprite.width/2,
-          y = self.pos.y + self.sprite.height/2 }
-    if self.sprite.x ~= p.x or self.sprite.y ~= p.y then
-        self.sprite.x = p.x
-        self.sprite.y = p.y
-        self.sprite:updateDrawInfo()
-    end
+    local size = self.animation.current_size
+    local p = { x = self.pos.x - size.w/2,
+          y = self.pos.y - size.h/2 }
+    self.animation:draw_current(p)
 end
 
 
@@ -63,6 +58,14 @@ function Unit:applyForce(dt)
     -- Force delta
     local dforce = mforce - cforce
     self.phys.body:applyForce(dforce.x, 0)
+
+    if self.force.x > 0 then
+        self.animation:set_frame("right")
+    elseif self.force.x < 0 then
+        self.animation:set_frame("left")
+    else
+        self.animation:stop()
+    end
 end
 
 
@@ -84,6 +87,9 @@ function Unit:update(dt)
     end
     self:applyForce(dt)
     self:applyImpulse(dt)
+    if self.animation:update(dt) then
+
+    end
 end
 
 function Unit:move(arg)

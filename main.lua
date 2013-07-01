@@ -20,6 +20,8 @@ function love.load(arg)
     LevelsManager:loadLevel("main")
     CameraManager:addTarget(ObjectsManager)
     CameraManager:addTarget(LevelsManager)
+    CameraManager:addTarget(LevelsManager)
+    CameraManager:addTarget(draw_animations)
     --CameraManager:addTarget(Physics)
     if profiler then profiler.start() end
 end
