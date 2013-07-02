@@ -2,9 +2,9 @@
 require("src.units.manager")
 require("src.physics")
 local loader = require("tileloader.Loader")
+local map
 
-
-LevelsManager = { map = nil }
+LevelsManager = { }
 LevelsManager.__index = LevelsManager
 
 

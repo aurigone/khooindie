@@ -1,0 +1,21 @@
+
+{
+    name = "name",
+    type = "unit type",
+    common_names = {}, -- Table with avaliable common classes
+    properties = {
+        -- Table with properties
+    }
+    animation {
+        image = "path to image"
+        frames = { -- time-dependent
+            "action name" = {
+                {
+                    duration, -- duration in ms
+                    leftx, topy, rightx, bottomy -- sprite position in image
+                    mirroredx -- bool
+                }
+            }
+        }
+    },
+}

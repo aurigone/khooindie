@@ -16,3 +16,13 @@ function Player:init(...)
     InputManager:bind_down("up", "jump", self, {x = 0, y = -1})
     CameraManager:setObject(self)
 end
+
+
+function Player:respawn()
+
+end
+
+
+function Player:die()
+    self:respawn()
+end

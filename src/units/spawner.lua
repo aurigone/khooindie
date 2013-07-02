@@ -20,6 +20,10 @@ function Spawner:init(pos, proto)
     local types = proto.properties.types:split(",")
     self.types = table.each(types, function(str)
                         return str:match("^%s*(.-)%s*$") end)
+
+    -- Hide spawner
+    proto.visible = false
+    proto:updateDrawInfo()
 end
 
 
