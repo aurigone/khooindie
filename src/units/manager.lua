@@ -52,7 +52,8 @@ function ObjectsManager:createObject(pos, proto, name)
     -- TODO: check if metha is Object subclass
     if metha ~= nil then
         local position = pos and {x = pos.x, y = pos.y} or  {x = sprite.x, y = sprite.y}
-        local object = metha:create(position, sprite)
+        print("metha", metha_name, metha)
+        local object = metha(position, sprite)
         table.insert(objects, object)
         if sprite.type == "player" then
             self.player = object

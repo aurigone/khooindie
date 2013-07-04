@@ -4,10 +4,11 @@ require("src.units.object")
 require("src.utils")
 
 
-Spawner = class(Object, "Spawner")
+Spawner = class(Object)
+Spawner.type = "Spawner"
 
 
-function Spawner:init(pos, proto)
+function Spawner:__init(pos, proto)
     self.pos = pos
     self.delay = proto.properties.delay or 0
     self.units_max = proto.properties.units_count or 1
@@ -44,6 +45,7 @@ function Spawner:action()
     end
     local random_type = self.types[math.random(#self.types)]
     local object = ObjectsManager:createObject(self.pos, random_type)
+    if object.spawn then object:spawn(self) end
     if object ~= nil then
         table.insert(self.units, object)
     end

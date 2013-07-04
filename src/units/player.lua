@@ -4,11 +4,14 @@ require("src.units.unit")
 require("src.input")
 require("src.cameras")
 
-Player = class(Unit, "Player")
+Player = class(Unit)
+Player.type = "Player"
 
 
-function Player:init(...)
-    self:super():init(...)
+local world_size = {x = 0, y = 0}
+
+function Player:__init(...)
+    self[Unit]:__init(...)
     InputManager:bind_down("right", "move", self, {x = 1, y = 0})
     InputManager:bind_up("right", "move", self, {x = 0, y = 0})
     InputManager:bind_down("left", "move", self, {x = -1, y = 0})
@@ -18,11 +21,23 @@ function Player:init(...)
 end
 
 
-function Player:respawn()
-
+function Player:spawn(spawner)
+    self.spawner = spawner
+    world_size = {x = LevelsManager.width, y = LevelsManager.height}
+    self:setPosition(spawner.pos)
 end
 
 
 function Player:die()
-    self:respawn()
+    self:spawn(self.spawner)
+end
+
+function Player:update(dt)
+    self[Unit]:update(dt)
+    local pos = self[Unit].pos
+    if pos.x < 0 or
+       pos.x > world_size.x or
+       pos.y > world_size.y then
+       self:die()
+    end
 end

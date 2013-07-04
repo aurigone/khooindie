@@ -3,10 +3,11 @@
 require("src.units.object")
 require("src.physics")
 
-Static = class(Object, "Static")
+Static = class(Object)
+Static.type = "Static"
 
-function Static:init(pos, obj)
-    self:super():init()
+
+function Static:__init(pos, obj)
     self.phys = Physics:staticObject("rect", {x = pos.x, y = pos.y},
                             {w = obj.width, h = obj.height}, self)
 end

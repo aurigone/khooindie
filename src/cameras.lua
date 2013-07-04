@@ -43,8 +43,9 @@ function CameraManager:getPos()
     local scale = camera.scale
     local w,h = love.graphics.getWidth(), love.graphics.getHeight()
     local mw, mh = LevelsManager:size()
-    local px = self.object and self.object.pos.x or camera.x
-    local py = self.object and self.object.pos.y or camera.y
+    local op = self.object and self.object:get("pos")
+    local px = op and op.x or camera.x
+    local py = op and op.y or camera.y
     -- Check borders
     local dx = (px < w / 2) and w / 2 or (
                (px > mw - w/2) and mw - w/2 or px )

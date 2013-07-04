@@ -1,10 +1,10 @@
 
-require("src.utils")
+require("3rdparty.unclasslib")
 
+Object = class()
+Object.type = "Object"
 
-Object = class({}, "Object")
-
-function Object:init()
+function Object:__init()
 end
 
 function Object:draw(pos, attr)

@@ -4,11 +4,14 @@ require("src.units.animation")
 require("src.physics")
 vector = require("hump.vector")
 
-Unit = class(Object, "Unit")
+Unit = class(Object)
+Unit.type = "Unit"
 
 
-function Unit:init(pos, proto)
-    self:super():init(pos, proto)
+function Unit:__init(pos, proto)
+    self[Object]:__init()
+    --print(self:super())
+    --self:super():init(pos, proto)
     self.pos = pos
     self.sprite = proto
     self.animation = proto.animation.new()
@@ -16,7 +19,7 @@ function Unit:init(pos, proto)
     self.speed = proto.properties.speed or 100
     self.mass = proto.properties.mass or 10
     self.fixed_rotation = proto.properties.fixed_rotation or false
-    self.jump_force = proto.properties.jump_force or 2
+    self.jump_force = proto.properties.jump_force or 3
     self.rotate = 0
     self.force = vector(0, 0)
     self._staticCollisions = {}
@@ -73,7 +76,7 @@ function Unit:applyImpulse(dt)
     local m = self.impulses:pop()
     if m ~= nil then
         local mass = self.phys.body:getMass()
-        local momentum = m.direction * m.force * self.speed * mass / ( dt * Physics.meter)
+        local momentum = m.direction * m.force * self.speed * mass / (0.01 * Physics.meter)
         self.phys.body:applyLinearImpulse(momentum.x, momentum.y)
     end
 end
@@ -116,4 +119,10 @@ function Unit:collideEnd(obj, coll)
     if obj._type == "Static" then
         table.remove(self._staticCollisions, 1)
     end
+end
+
+function Unit:setPosition(pos)
+    self.phys.body:setPosition(pos.x, pos.y)
+    self.phys.body:setLinearVelocity(0, 0)
+    self.phys.body:setAngularVelocity(0, 0)
 end
