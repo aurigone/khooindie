@@ -1,5 +1,6 @@
 
 vector = require("hump.vector")
+require("src.sensor")
 
 local dynamic_objects = {}
 local static_objects = {}
@@ -59,11 +60,25 @@ function Physics:update(dt)
 end
 
 
+function Physics:addSensor(obj, phys, radius)
+    local sensor = Sensor(obj, phys, radius)
+    if not phys.sensors then phys.sensors = {} end
+    table.insert(phys.sensors, sensor)
+    return sensor
+end
+
+
 function Physics:draw(pos, arg)
     local mode = "line"
     function _draw(obj)
-        love.graphics.circle(mode, obj.body:getX(), obj.body:getY(), 10)
+        local x, y = obj.body:getX(), obj.body:getY()
+        love.graphics.circle(mode, x, y, 10)
         love.graphics.quad(mode, obj.body:getWorldPoints(obj.shape:getPoints()))
+        if obj.sensors then
+            for _, sensor in ipairs(obj.sensors) do
+                love.graphics.circle(mode, x, y, sensor.radius)
+            end
+        end
     end
 
     for i, object in ipairs(static_objects) do
@@ -78,6 +93,7 @@ end
 function beginContact(a, b, coll)
     local f = a:getUserData()
     local s = b:getUserData()
+    print(a, b)
     f:collide(s, coll)
     s:collide(f, coll)
 end
@@ -94,3 +110,4 @@ end
 
 function postSolve(a, b, coll)
 end
+

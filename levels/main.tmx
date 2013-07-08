@@ -76,19 +76,16 @@
   </object>
   <object name="ew" type="spawner" gid="3" x="929" y="608">
    <properties>
-    <property name="disabled" value="1"/>
     <property name="types" value="walking_enemy"/>
    </properties>
   </object>
   <object name="ej" type="spawner" gid="3" x="1568" y="224">
    <properties>
-    <property name="disabled" value="1"/>
     <property name="types" value="jumping_enemy"/>
    </properties>
   </object>
   <object name="ef" type="spawner" gid="3" x="2080" y="256">
    <properties>
-    <property name="disabled" value="1"/>
     <property name="types" value="flying_enemy"/>
    </properties>
   </object>

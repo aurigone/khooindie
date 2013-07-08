@@ -21,7 +21,8 @@ function Spawner:__init(pos, proto)
     local types = proto.properties.types:split(",")
     self.types = table.each(types, function(str)
                         return str:match("^%s*(.-)%s*$") end)
-
+    self.typeset = set(self.types)
+    self.checkpoint = self.typeset.player
     -- Hide spawner
     proto.visible = false
     proto:updateDrawInfo()
@@ -45,6 +46,7 @@ function Spawner:action()
     end
     local random_type = self.types[math.random(#self.types)]
     local object = ObjectsManager:createObject(self.pos, random_type)
+    if not object then return end
     if object.spawn then object:spawn(self) end
     if object ~= nil then
         table.insert(self.units, object)
@@ -54,5 +56,10 @@ end
 
 function Spawner:update(dt)
     if self.disabled or self.started then return end
+    local pos = nil
+    if not self.checkpoint then
+        pos = ObjectsManager:PlayerPosition()
+        if pos == nil then return end
+    end
     self:addTimer()
 end

@@ -32,6 +32,11 @@ function stack(t)
     return setmetatable(t or {}, {__index = Stack})
 end
 
+function set(list)
+  local _set = {}
+  for _, l in ipairs(list) do _set[l] = true end
+  return _set
+end
 
 function table:each(func)
   local new_array = {}

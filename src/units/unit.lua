@@ -100,7 +100,7 @@ function Unit:move(arg)
 end
 
 function Unit:jump(arg)
-    if x == 0 and y == 0 then return end
+    if arg.x == 0 and arg.y == 0 then return end
     if #self._staticCollisions > 0 then
         self.impulses:push({
             direction=vector(arg.x, arg.y),
@@ -110,13 +110,13 @@ function Unit:jump(arg)
 end
 
 function Unit:collide(obj, coll)
-    if obj._type == "Static" then
+    if obj.type == "Static" then
         table.insert(self._staticCollisions, coll)
     end
 end
 
 function Unit:collideEnd(obj, coll)
-    if obj._type == "Static" then
+    if obj.type == "Static" then
         table.remove(self._staticCollisions, 1)
     end
 end

@@ -3,6 +3,7 @@
 require("src.units.unit")
 require("src.input")
 require("src.cameras")
+require("src.physics")
 
 Player = class(Unit)
 Player.type = "Player"
@@ -35,9 +36,7 @@ end
 function Player:update(dt)
     self[Unit]:update(dt)
     local pos = self[Unit].pos
-    if pos.x < 0 or
-       pos.x > world_size.x or
-       pos.y > world_size.y then
+    if pos.y > world_size.y then
        self:die()
     end
 end

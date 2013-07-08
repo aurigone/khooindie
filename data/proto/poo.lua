@@ -1,6 +1,6 @@
 return {
     name = "poo",
-    type = "Unit",
+    type = "WalkingEnemy",
     common_names = {"walking_enemy"},
     properties = { },
     animation = {

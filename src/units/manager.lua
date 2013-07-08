@@ -2,6 +2,7 @@
 require("src.units.object")
 require("src.units.static")
 require("src.units.player")
+require("src.units.walking_enemy")
 require("src.units.spawner")
 require("src.units.prototype")
 require("src.units.animations")
@@ -30,6 +31,12 @@ function ObjectsManager:draw()
     end
 end
 
+function ObjectsManager:PlayerPosition()
+    if self.player then
+        return self.player:get("pos")
+    end
+end
+
 
 function ObjectsManager:createObject(pos, proto, name)
     local sprite
@@ -52,10 +59,9 @@ function ObjectsManager:createObject(pos, proto, name)
     -- TODO: check if metha is Object subclass
     if metha ~= nil then
         local position = pos and {x = pos.x, y = pos.y} or  {x = sprite.x, y = sprite.y}
-        print("metha", metha_name, metha)
         local object = metha(position, sprite)
         table.insert(objects, object)
-        if sprite.type == "player" then
+        if object.type == "Player" then
             self.player = object
         end
         return object
