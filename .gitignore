@@ -1,5 +1,7 @@
 #binary to run
 love
 tiled
+build*
 graphics/save
-
+profiler.so
+summary.lua
