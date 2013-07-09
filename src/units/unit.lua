@@ -10,8 +10,6 @@ Unit.type = "Unit"
 
 function Unit:__init(pos, proto)
     self[Object]:__init()
-    --print(self:super())
-    --self:super():init(pos, proto)
     self.pos = pos
     self.sprite = proto
     self.animation = proto.animation.new()

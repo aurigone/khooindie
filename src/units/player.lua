@@ -40,3 +40,4 @@ function Player:update(dt)
        self:die()
     end
 end
+

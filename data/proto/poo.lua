@@ -2,7 +2,9 @@ return {
     name = "poo",
     type = "WalkingEnemy",
     common_names = {"walking_enemy"},
-    properties = { },
+    properties = {
+        enemies = {"Player"},
+    },
     animation = {
         image = "graphics/anim.png",
         frames = {

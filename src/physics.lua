@@ -93,7 +93,6 @@ end
 function beginContact(a, b, coll)
     local f = a:getUserData()
     local s = b:getUserData()
-    print(a, b)
     f:collide(s, coll)
     s:collide(f, coll)
 end
