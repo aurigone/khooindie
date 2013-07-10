@@ -46,9 +46,8 @@ function Spawner:action()
     end
     local random_type = self.types[math.random(#self.types)]
     local object = ObjectsManager:createObject(self.pos, random_type)
-    if not object then return end
-    if object.spawn then object:spawn(self) end
     if object ~= nil then
+        if object.spawn then object:spawn(self) end
         table.insert(self.units, object)
     end
 end
@@ -63,3 +62,14 @@ function Spawner:update(dt)
     end
     self:addTimer()
 end
+
+
+function Spawner:free(obj)
+    for k, v in ipairs(self.units) do
+        if v[Object] == obj[Object] then
+            self.units[k] = nil
+            self.units_count = self.units_count - 1
+        end
+    end
+end
+

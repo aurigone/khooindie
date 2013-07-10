@@ -55,7 +55,7 @@ function init_animation(anim)
     if tileset.image == nil then
         tileset.image = love.graphics.newImage(anim.image)
         tileset.image:setFilter("nearest", "linear")
-        tileset.batch = love.graphics.newSpriteBatch(tileset.image, 30)
+        tileset.batch = KSpriteBatch.new(tileset.image, 30)
         table.insert(batches, tileset.batch)
     end
 
@@ -67,11 +67,6 @@ end
 
 function draw_animations(pos)
     for _, batch in ipairs(batches) do
-        love.graphics.draw(batch, 0, 0)
+        love.graphics.draw(batch.batch, 0, 0)
     end
 end
-
-
-
-
-

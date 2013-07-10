@@ -6,6 +6,7 @@ require("src.units.walking_enemy")
 require("src.units.spawner")
 require("src.units.prototype")
 require("src.units.animations")
+ltraverse = require("3rdparty.traverse")
 
 
 local objects = {}
@@ -21,6 +22,15 @@ end
 function ObjectsManager:process(dt)
     for i, object in ipairs(objects) do
         object:update(dt)
+        if object[Object].deleted then
+            object:__destroy()
+            objects[i] = nil
+            local refcount = ltraverse.countreferences(object)
+            if refcount > 1 then
+                print("Object was not deleted properly: " .. refcount .. " references found.")
+                print(ltraverse.findallpaths(object))
+            end
+        end
     end
 end
 

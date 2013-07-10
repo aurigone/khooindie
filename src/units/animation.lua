@@ -4,17 +4,63 @@
 Animation = { }
 Animation.__index = Animation
 
+
+KSpriteBatch = {}
+KSpriteBatch.__index = KSpriteBatch
+
+function KSpriteBatch.new(image, size)
+    local batch = {}
+    setmetatable(batch, KSpriteBatch)
+    return batch:init(image, size)
+end
+
+function KSpriteBatch:init(image, size)
+    self.batch = love.graphics.newSpriteBatch(image, size)
+    self.animations = {}
+    return self
+end
+
+function KSpriteBatch:draw_one(anim, pos)
+    self.batch:setq(anim._batch_id, anim.current_quad, pos.x, pos.y)
+end
+
+function KSpriteBatch:addAnim(anim)
+    table.insert(self.animations, anim)
+    self:update()
+end
+
+function KSpriteBatch:removeAnim(anim)
+    for i, a in ipairs(self.animations) do
+        if a == anim then self.animations[i] = nil end
+    end
+    self:update()
+end
+
+function KSpriteBatch:update()
+    self.batch:clear()
+    self.batch:bind()
+    for _, a in ipairs(self.animations) do
+        a._batch_id = self.batch:addq(a.current_quad, 0, 0)
+    end
+    self.batch:unbind()
+end
+
+
 function Animation:init()
     self.frames = self.def.frames
     self:set_frame("idle")
     self.tileset = self.def.tileset
-    self.id = self.tileset.batch:addq(self.current_quad, 0, 0)
+    self.batch = self.tileset.batch
+    self.batch:addAnim(self)
     self.timer = 0
     self.frame_start = 0
     self.stopped = false
     return self
 end
 
+function Animation:free()
+    self.batch:removeAnim(self)
+end
 
 function Animation:set_frame(name)
     self.stopped = false
@@ -60,5 +106,5 @@ function Animation:stop(index)
 end
 
 function Animation:draw_current(pos)
-    self.def.tileset.batch:setq(self.id, self.current_quad, pos.x, pos.y)
+    self.batch:draw_one(self, pos)
 end

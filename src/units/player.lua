@@ -9,8 +9,6 @@ Player = class(Unit)
 Player.type = "Player"
 
 
-local world_size = {x = 0, y = 0}
-
 function Player:__init(...)
     self[Unit]:__init(...)
     InputManager:bind_down("right", "move", self, {x = 1, y = 0})
@@ -21,22 +19,14 @@ function Player:__init(...)
     CameraManager:setObject(self)
 end
 
-
-function Player:spawn(spawner)
-    self.spawner = spawner
-    world_size = {x = LevelsManager.width, y = LevelsManager.height}
-    self:setPosition(spawner.pos)
-end
-
-
 function Player:die()
-    self:spawn(self.spawner)
+    self:spawn(self[Unit].spawner)
 end
 
 function Player:update(dt)
     self[Unit]:update(dt)
     local pos = self[Unit].pos
-    if pos.y > world_size.y then
+    if pos.y > LevelsManager.height then
        self:die()
     end
 end

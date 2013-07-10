@@ -15,13 +15,22 @@ function WalkingEnemy:__init(pos, proto)
     end
 end
 
+function WalkingEnemy:__destroy()
+    self[Unit]:__destroy()
+    self.sensor = nil
+end
+
 function WalkingEnemy:update(dt)
     self[Unit]:update(dt)
+    local pos = self[Unit].pos
     local waypoint = self.waypoints:top()
     if waypoint then
         local x = waypoint.x - self[Unit].pos.x
         local y = waypoint.y - self[Unit].pos.y
         self:move({x = math.abs(x)/x, y = math.abs(y)/y})
+    end
+    if pos.y > LevelsManager.height then
+       self:die()
     end
 end
 

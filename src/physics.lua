@@ -12,6 +12,27 @@ Physics = {
 }
 Physics.__index = Physics
 
+local function beginContact(a, b, coll)
+    local f = a:getUserData()
+    local s = b:getUserData()
+    f:collide(s, coll)
+    s:collide(f, coll)
+end
+
+local function endContact(a, b, coll)
+    local f = a:getUserData()
+    local s = b:getUserData()
+    f:collideEnd(s, coll)
+    s:collideEnd(f, coll)
+end
+
+local function preSolve(a, b, coll)
+end
+
+local function postSolve(a, b, coll)
+end
+
+
 
 function Physics:load()
     love.physics.setMeter(self.meter)
@@ -67,7 +88,6 @@ function Physics:addSensor(obj, phys, radius)
     return sensor
 end
 
-
 function Physics:draw(pos, arg)
     local mode = "line"
     function _draw(obj)
@@ -89,24 +109,21 @@ function Physics:draw(pos, arg)
     end
 end
 
+function Physics:free(obj)
+    for i, o in ipairs(static_objects) do
+        if o == obj then
+            static_objects[i] = nil
+        end
+    end
+    for i, o in ipairs(dynamic_objects) do
+        if o == obj then
+            dynamic_objects[i] = nil
+        end
+    end
+    for i, s in ipairs(obj.sensors) do
+        obj.sensors[i] = nil
+        s:__destroy()
+    end
 
-function beginContact(a, b, coll)
-    local f = a:getUserData()
-    local s = b:getUserData()
-    f:collide(s, coll)
-    s:collide(f, coll)
-end
-
-function endContact(a, b, coll)
-    local f = a:getUserData()
-    local s = b:getUserData()
-    f:collideEnd(s, coll)
-    s:collideEnd(f, coll)
-end
-
-function preSolve(a, b, coll)
-end
-
-function postSolve(a, b, coll)
 end
 

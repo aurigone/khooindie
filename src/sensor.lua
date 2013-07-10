@@ -20,6 +20,16 @@ function Sensor:__init(obj, phys, radius)
     self.callbacks_end = {}
 end
 
+function Sensor:__destroy()
+    self.phys = nil
+    for i,v in pairs(self.callbacks_begin) do
+        self.callbacks_begin[i] = nil
+    end
+    for i,v in pairs(self.callbacks_end) do
+        self.callbacks_end[i] = nil
+    end
+end
+
 function Sensor:collide(obj, coll)
     self:callback(self.callbacks_begin, obj, coll)
 end

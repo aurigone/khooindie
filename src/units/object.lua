@@ -7,6 +7,9 @@ Object.type = "Object"
 function Object:__init()
 end
 
+function Object:__destroy()
+end
+
 function Object:draw(pos, attr)
 end
 
@@ -14,7 +17,7 @@ function Object:update(dt)
 end
 
 -- Collision callbacks
--- Redefined in subclass if needed
+-- Redefined in subclasses if needed
 function Object:collide(obj, coll)
 end
 

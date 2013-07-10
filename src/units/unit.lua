@@ -26,6 +26,15 @@ function Unit:__init(pos, proto)
     self.phys = Physics:dynamicObject("rect", pos, size, self)
 end
 
+function Unit:__destroy()
+    self[Object]:__destroy()
+    Physics:free(self.phys)
+    self.phys = nil
+    self.animation:free()
+    self.animation = nil
+    self.spawner:free(self)
+end
+
 
 function Unit:draw(pos, attr)
     local size = self.animation.current_size
@@ -123,4 +132,13 @@ function Unit:setPosition(pos)
     self.phys.body:setPosition(pos.x, pos.y)
     self.phys.body:setLinearVelocity(0, 0)
     self.phys.body:setAngularVelocity(0, 0)
+end
+
+function Unit:spawn(spawner)
+    self.spawner = spawner
+    self:setPosition(spawner.pos)
+end
+
+function Unit:die()
+    self[Object].deleted = true
 end
