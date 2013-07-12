@@ -40,7 +40,7 @@ end
 
 function Sensor:callback(callbacks, obj, coll)
     local t = obj.sprite and obj.sprite.type or obj.type
-    local cbt = callbacks[t]
+    local cbt = callbacks[t] or callbacks.__all
     if cbt == nil then return end
     for _, cb in ipairs(cbt) do
         local args = cb.args and table.copy(cb.args) or {}
@@ -59,9 +59,14 @@ function Sensor:addCallback(t, types, fun, args)
     else
         assert(false, "Wrong callback type")
     end
-    for _, target in pairs(types) do
-        if tb[target] == nil then tb[target] = {} end
-        table.insert(tb[target], {f=fun, args=args})
+    if not types then
+        if tb.__all == nil then tb.__all = {} end
+        table.insert(tb.__all, {f=fun, args=args})
+    else
+        for _, target in pairs(types) do
+            if tb[target] == nil then tb[target] = {} end
+            table.insert(tb[target], {f=fun, args=args})
+        end
     end
 end
 

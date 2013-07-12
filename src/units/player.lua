@@ -31,3 +31,6 @@ function Player:update(dt)
     end
 end
 
+function Player:hit(obj)
+
+end

@@ -24,6 +24,10 @@ function Unit:__init(pos, proto)
     self.impulses = stack()
     local size = self.animation.current_size
     self.phys = Physics:dynamicObject("rect", pos, size, self)
+    self.phys.fixture:setCategory(2)
+    self.phys.fixture:setMask(2)
+    self.hitbox = Physics:addSensor(self, self.phys, 30)
+    self.hitbox:addCallback(CB_BEGIN, nil, self:chaintop().hit, {self:chaintop()})
 end
 
 function Unit:__destroy()
@@ -141,4 +145,7 @@ end
 
 function Unit:die()
     self[Object].deleted = true
+end
+
+function Unit:hit(obj)
 end

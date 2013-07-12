@@ -11,7 +11,7 @@ function WalkingEnemy:__init(pos, proto)
     self.enemies = proto.properties.enemies or {}
     self.sensor = Physics:addSensor(self, self[Unit].phys, self.visible_range)
     if #self.enemies > 0 then
-        self.sensor:addCallback(CB_BEGIN, self.enemies, self.spot, {self})
+        self.sensor:addCallback(CB_BEGIN, self.enemies, self:chaintop().spot, {self:chaintop()})
     end
 end
 

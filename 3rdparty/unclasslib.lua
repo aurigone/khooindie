@@ -78,7 +78,8 @@ local reserved =
     __from          = true,
     __shared        = true,
     __user_init     = true,
-    __initialized   = true
+    __initialized   = true,
+    __chain         = true,
 }
 
 --[[
@@ -171,6 +172,11 @@ local function build(class, shared_objs, shared)
             return val
         end
 
+    obj.chaintop = function(self)
+            return #self.__chain and self.__chain[#self.__chain] or self
+        end
+
+
     -- Build child objects if there are base classes
     local nbases = #class.__bases
     if nbases > 0 then
@@ -186,6 +192,7 @@ local function build(class, shared_objs, shared)
             local base = class.__bases[i]
             local child = build(base, shared_objs, class.__shared[base])
             obj[base] = child
+            obj.__chain = child.__chain
 
             -- Get inherited grandchildren from this child
             for c, grandchild in pairs(child) do
@@ -208,7 +215,11 @@ local function build(class, shared_objs, shared)
             if not obj[k] then obj[k] = v end
         end
 
+    else
+        obj.__chain = {}
     end
+
+    table.insert(obj.__chain, obj)
 
     -- Object is ready
     setmetatable(obj, class)
